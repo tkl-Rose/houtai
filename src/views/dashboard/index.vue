@@ -1,28 +1,42 @@
 <template>
-  <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+  <div class="indexContainer">
+    <div class="content">
+      <TopView></TopView>
+      <MiddleView></MiddleView>
+      <BottomView></BottomView>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
+import TopView from './components/TopView'
+import MiddleView from './components/MiddleView'
+import BottomView from './components/BottomView'
 export default {
-  name: "Dashboard",
-  computed: {
-    ...mapGetters(["name"])
+  name: 'Dashboard',
+  components:{
+    TopView,
+    MiddleView,
+    BottomView
+  },
+  
+  mounted(){
+    this.getEchartsData()
+  },
+  methods:{
+    getEchartsData(){
+      this.$store.dispatch('echarts/getEchartsData')
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
+  .indexContainer{
+    padding: 20px;
+    .content{
+      background-color: #ddd;
+      padding: 20px;
+    }
   }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
-  }
-}
 </style>

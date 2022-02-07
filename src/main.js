@@ -2,10 +2,16 @@ import Vue from 'vue'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
-// element-ui的完整引入
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
+
+// 引入echarts
+import '@/plugins/echarts'
+import '@/styles/echarts.css'
+import '@/mockServer'
+import '@/filters'
+
 
 import '@/styles/index.scss' // global css
 
@@ -16,22 +22,6 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
-
-import * as API from '@/api'
-import CategorySelector from '@/components/CategorySelector';
-import HintButton from '@/components/HintButton';
-
-
-Vue.component('CategorySelector', CategorySelector)
-Vue.component('HintButton', HintButton)
-
-
-// {
-//   trademark,
-//   attr
-// }
-
-
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -41,22 +31,16 @@ Vue.component('HintButton', HintButton)
  * please remove it before going online ! ! !
  */
 if (process.env.NODE_ENV === 'production') {
-  const {
-    mockXHR
-  } = require('../mock')
+  const { mockXHR } = require('../mock')
   mockXHR()
 }
 
 // set ElementUI lang to EN
-Vue.use(ElementUI, {
-  locale
-})
+Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
-Vue.prototype.$API = API
-
 
 new Vue({
   el: '#app',
